@@ -1,7 +1,18 @@
-#nullable enable
 using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 namespace entities
 {
+    public class ContactsContext : DbContext
+    {
+    public DbSet<Contact> Contacts;
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            //mexer aqui
+            optionsBuilder.UseSqlServer(
+                @"Server=(localdb)\mssqllocaldb;Database=Blogging;Integrated Security=True");
+        }
+    }
     public class Contact
     {
         public readonly Guid id;

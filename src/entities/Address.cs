@@ -1,8 +1,19 @@
-#nullable enable
 using System;
-
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 namespace entities
 {
+
+    public class AddressesContext : DbContext
+    {
+        public DbSet<Address> Addresses;
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            //mexer aqui
+            optionsBuilder.UseSqlServer(
+                @"Server=(localdb)\mssqllocaldb;Database=Blogging;Integrated Security=True");
+        }
+    }
     public class Address
     {
         public readonly Guid id;
