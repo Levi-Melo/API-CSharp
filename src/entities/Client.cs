@@ -5,26 +5,30 @@ namespace entities
 {
     public class Client
     {
-        [Required]
-        public Guid id;
-        [Required]
+        public readonly Guid id;
         public string name;
-        [Required]
         public string cnpj;
-        [Required]
         public DateTime createdAt;
-        [Required]
         public DateTime updatedAt;
         public Contact contact;
         public Address address;
-        public Client( Guid id, string name, string cnpj, DateTime createdAt = new DateTime(),
-         Address address = null, Contact contact = null){
+        public Client(
+        string name, string cnpj, Address address, Contact contact, 
+        Guid id = new Guid(), DateTime createdAt = new DateTime(),
+        DateTime updatedAt = new DateTime()){
             this.name = name;
             this.cnpj = cnpj;
-            this.id = id;
-            this.createdAt = createdAt;
             this.contact = contact;
             this.address = address;
+            if(id == new Guid()){
+                this.id = Guid.NewGuid();
+                this.createdAt = DateTime.Now;
+                this.updatedAt = DateTime.Now;
+                return;
+            }
+            this.id = id;
+            this.createdAt = createdAt;
+            this.updatedAt = updatedAt;
         }
     }
 }
