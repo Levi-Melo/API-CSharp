@@ -7,6 +7,6 @@ public interface IAddressRepository {
   List<Address> findAll();
   List<Address> findByClient(Guid clientId);
   Address insert(Address address);
-  Address update(Guid id, Address address);
-  Address delete(Guid id);
+  Address update(Address address);
+  void delete(Address address);
 }

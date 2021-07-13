@@ -28,25 +28,18 @@ namespace repository
             db.SaveChanges(); 
             return Contact;
         }
-        public Contact update(Guid id, Contact data){
+        public Contact update( Contact data){
             var db = new ContactsContext();
-
-            var ContactOldData = findById(id);
-
             db.Update<Contact>(data);
             db.SaveChanges();  
-
             return data;
         }
 
-        public Contact delete(Guid id){
-            var Contact = findById(id);
-            if(!(Contact == null)){
+        public Contact delete(Contact data){
             var db = new ContactsContext();
-                db.Remove<Contact>(Contact);
+                db.Remove<Contact>(data);
                 db.SaveChanges(); 
-            }
-            return Contact;
+            return data;
         }
     }
 }

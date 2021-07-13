@@ -21,26 +21,18 @@ namespace repository
             db.SaveChanges(); 
             return data;
         }
-        public Client update(Guid id, string name = null, string cnpj = null, 
-        List<Address> addresses = null, List<Contact> contacts = null){
+        public Client update(Client client){
             var db = new ClientsContext();
-            
-            var clientOldData = findById(id);
-            Client clientNewData = new Client(name, cnpj, addresses, contacts,id, clientOldData.createdAt);
-
-            db.Update<Client>(clientNewData);
+            db.Update<Client>(client);
             db.SaveChanges(); 
-            return clientNewData;
+            return client;
         }
 
-        public Client delete(Guid id){
-            var client = findById(id);
-            if(!(client == null)){
+        public void delete(Client client){
             var db = new ClientsContext();
                 db.Remove<Client>(client);
                 db.SaveChanges(); 
             }
-            return client;
         }
-    }
 }
+

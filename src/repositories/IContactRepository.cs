@@ -7,6 +7,6 @@ public interface IContactRepository {
   List<Contact> findAll();
   List<Contact> findByClient(Guid clientId);
   Contact insert(Contact contact);
-  Contact update(Guid id, Contact contact);
-  Contact delete(Guid id);
+  Contact update(Contact contact);
+  Contact delete(Contact contact);
 }
