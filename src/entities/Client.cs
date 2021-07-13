@@ -6,12 +6,11 @@ namespace entities
 {
     public class ClientsContext : DbContext
     {
-        public DbSet<Client> Clients;
+        public DbSet<Client> Clients{ get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //mexer aqui
             optionsBuilder.UseSqlServer(
-                @"Server=(localdb)\mssqllocaldb;Database=Blogging;Integrated Security=True");
+                @"Server=(localdb)\mssqllocaldb;Database=api_csharp;user=SA;Password=Azxs1230");
         }
     }
     public class Client
@@ -31,15 +30,18 @@ namespace entities
             this.cnpj = cnpj;
             this.contacts = contacts;
             this.addresses = addresses;
-            if(id == new Guid()){
-                this.id = Guid.NewGuid();
-                this.createdAt = DateTime.Now;
-                this.updatedAt = DateTime.Now;
-                return;
-            }
-            this.id = id;
-            this.createdAt = createdAt;
-            this.updatedAt = updatedAt;
+            this.id = id == new Guid() ? Guid.NewGuid() : id;
+            this.createdAt = createdAt == new DateTime() ? DateTime.Now : createdAt;
+            this.updatedAt = updatedAt == new DateTime() ? DateTime.Now : updatedAt;
+        }
+        public Client(Client client){
+            this.name = client.name;
+            this.cnpj = client.cnpj;
+            this.contacts = client.contacts;
+            this.addresses = client.addresses;
+            this.id = client.id;
+            this.createdAt = client.createdAt;
+            this.updatedAt = client.updatedAt;
         }
     }
 }

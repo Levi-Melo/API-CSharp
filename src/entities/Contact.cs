@@ -10,7 +10,7 @@ namespace entities
         {
             //mexer aqui
             optionsBuilder.UseSqlServer(
-                @"Server=(localdb)\mssqllocaldb;Database=Blogging;Integrated Security=True");
+                @"Server=(localdb)\mssqllocaldb;Database=api_csharp;user=SA;Password=Azxs1230");
         }
     }
     public class Contact

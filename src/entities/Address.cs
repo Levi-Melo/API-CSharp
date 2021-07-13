@@ -9,9 +9,8 @@ namespace entities
         public DbSet<Address> Addresses;
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //mexer aqui
             optionsBuilder.UseSqlServer(
-                @"Server=(localdb)\mssqllocaldb;Database=Blogging;Integrated Security=True");
+                @"Server=(localdb)\mssqllocaldb;Database=api_csharp;user=SA;Password=Azxs1230");
         }
     }
     public class Address
@@ -39,15 +38,9 @@ namespace entities
                 this.city = city;
                 this.state = state;
                 this.cep = cep;
-                if(id == new Guid()){
-                    this.id = Guid.NewGuid();
-                    this.createdAt = DateTime.Now;
-                    this.updatedAt = DateTime.Now;
-                    return;
-                }
-                this.id = id;
-                this.createdAt = createdAt;
-                this.updatedAt = updatedAt;
+                this.id = id == new Guid() ? Guid.NewGuid() : id;
+                this.createdAt = createdAt == new DateTime() ? DateTime.Now : createdAt;
+                this.updatedAt = updatedAt == new DateTime() ? DateTime.Now : updatedAt;
         }
     }
 }
