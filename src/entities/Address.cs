@@ -18,7 +18,6 @@ namespace entities
     [DisplayColumnAttribute("id", "clientId", true)]
     public class Address
     {
-        [KeyAttribute]
         public readonly Guid id;
         public readonly Guid clientId;
         public string street;
@@ -26,11 +25,10 @@ namespace entities
         public string district;
         public string city;
         public string state;
-        [DataType(DataType.PostalCode)]
+        [CustomValidation(typeof(CustomValidators),"CepValidation")]
         public string cep;
         public DateTime createdAt;
         public DateTime updatedAt;
-
         public Address(
             Guid clientId, string street, int number,string district,
             string city,string state,string cep,Guid id = new Guid(), 

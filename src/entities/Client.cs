@@ -19,6 +19,7 @@ namespace entities
         [KeyAttribute]
         public readonly Guid id;
         public string name;
+        [CustomValidation(typeof(CustomValidators),"CnpjValidation")]
         public string cnpj;
         public DateTime createdAt;
         public DateTime updatedAt;
