@@ -9,13 +9,12 @@ namespace repository
     {
         public Address findById(Guid id){
             var db = new AddressesContext();
-            var Address = db.Find<Address>(id);
-            return Address;
+            return db.Addresses.Single(address => address.id == id);
         }
 
         public List<Address> findAll(){
             var db = new AddressesContext();
-            return new List<Address>(db.Addresses) ;
+            return db.Addresses.ToList();
         }
             public List<Address> findByClient(Guid clientId){
             var db = new AddressesContext();

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 namespace repository
 {
-    public class ClientService : IClientService
+    public class ClientValidationService : IClientValidationService
     {
             public Client validatePost(string name, string cnpj ){
             var db = new ClientsContext();
@@ -11,7 +11,6 @@ namespace repository
             if(clientExists == null){
             Client client = new Client(name, cnpj, null, null);
             ClientRepository repo = new ClientRepository();
-            //validação de dados aqui
             return repo.insert(client);
             }
             return clientExists;
@@ -32,7 +31,6 @@ namespace repository
             var db = new ClientsContext();
             var clientExists =  repo.findById(id);
             if(!(clientExists == null)){
-            //validade data
             var newName = name == null ? clientExists.name : name; 
             var newCnpj = cnpj == null ? clientExists.cnpj : cnpj; 
 

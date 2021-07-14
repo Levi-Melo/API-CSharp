@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 namespace entities
 {
@@ -13,8 +15,10 @@ namespace entities
                 @"Server=(localdb)\mssqllocaldb;Database=api_csharp;user=SA;Password=Azxs1230");
         }
     }
+    [DisplayColumnAttribute("id", "clientId", true)]
     public class Address
     {
+        [KeyAttribute]
         public readonly Guid id;
         public readonly Guid clientId;
         public string street;
@@ -22,6 +26,7 @@ namespace entities
         public string district;
         public string city;
         public string state;
+        [DataType(DataType.PostalCode)]
         public string cep;
         public DateTime createdAt;
         public DateTime updatedAt;

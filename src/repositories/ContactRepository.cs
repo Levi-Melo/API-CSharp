@@ -9,13 +9,12 @@ namespace repository
     {
         public Contact findById(Guid id){
             var db = new ContactsContext();
-            var Contact = db.Find<Contact>(id);
-            return Contact;
+            return db.Contacts.Single(contact => contact.id == id);
         }
 
         public List<Contact> findAll(){
             var db = new ContactsContext();
-            return new List<Contact>(db.Contacts) ;
+            return db.Contacts.ToList();
         }
             public List<Contact> findByClient(Guid clientId){
             var db = new ContactsContext();

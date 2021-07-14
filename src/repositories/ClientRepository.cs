@@ -1,19 +1,20 @@
 using entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+
 namespace repository
 {
     public class ClientRepository : IClientRepository
     {
         public Client findById(Guid id){
             var db = new ClientsContext();
-            var client = db.Find<Client>(id);
-            return client;
+            return db.Clients.Single(client => client.id == id);
         }
 
         public List<Client> findAll(){
             var db = new ClientsContext();
-            return new List<Client>(db.Clients) ;
+            return db.Clients.ToList();
         }
         public Client insert(Client data){
             var db = new ClientsContext();
@@ -21,11 +22,11 @@ namespace repository
             db.SaveChanges(); 
             return data;
         }
-        public Client update(Client client){
+        public Client update(Client data){
             var db = new ClientsContext();
-            db.Update<Client>(client);
+            db.Update<Client>(data);
             db.SaveChanges(); 
-            return client;
+            return data;
         }
 
         public void delete(Client client){

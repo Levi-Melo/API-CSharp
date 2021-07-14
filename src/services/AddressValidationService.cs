@@ -1,9 +1,8 @@
 using entities;
 using System;
-using System.Collections.Generic;
 namespace repository
 {
-    public class AddressService : IAddressService
+    public class AddressValidationService : IAddressValidationService
     {
             public Address validatePost(Guid clientId, string street,int number, string district ,string city , string state , string cep){
             var db = new AddressesContext();
@@ -11,7 +10,6 @@ namespace repository
             var addressExists = db.Find<Address>(Address);
             if(addressExists == null){
             AddressRepository repo = new AddressRepository();
-            //validação de dados aqui
             return repo.insert(Address);
             }
             return addressExists;
@@ -34,7 +32,6 @@ namespace repository
             var addressExists =  repo.findById(id);
             if(!(addressExists == null)){
            
-            //validadar data aqui
             var newStreet = street == null ? addressExists.street : street; 
             var newNumber = number == -1 ? addressExists.number : number; 
             var newDistrict = district == null ? addressExists.district : district; 

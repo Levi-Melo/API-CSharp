@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 
 namespace entities
@@ -15,6 +16,7 @@ namespace entities
     }
     public class Client
     {
+        [KeyAttribute]
         public readonly Guid id;
         public string name;
         public string cnpj;
@@ -33,15 +35,6 @@ namespace entities
             this.id = id == new Guid() ? Guid.NewGuid() : id;
             this.createdAt = createdAt == new DateTime() ? DateTime.Now : createdAt;
             this.updatedAt = updatedAt == new DateTime() ? DateTime.Now : updatedAt;
-        }
-        public Client(Client client){
-            this.name = client.name;
-            this.cnpj = client.cnpj;
-            this.contacts = client.contacts;
-            this.addresses = client.addresses;
-            this.id = client.id;
-            this.createdAt = client.createdAt;
-            this.updatedAt = client.updatedAt;
         }
     }
 }

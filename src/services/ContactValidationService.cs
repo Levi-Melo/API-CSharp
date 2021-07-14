@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 namespace repository
 {
-    public class ContactService : IContactService
+    public class ContactValidationService : IContactValidationService
     {
             public Contact validatePost(Guid clientId, string telephone,string cellphone, string contactName ,string email){
             var db = new ContactsContext();
@@ -11,7 +11,6 @@ namespace repository
             var ContactExists = db.Find<Contact>(Contact);
             if(ContactExists == null){
             ContactRepository repo = new ContactRepository();
-            //validação de dados aqui
             return repo.insert(Contact);
             }
             return ContactExists;
@@ -34,7 +33,6 @@ namespace repository
             var ContactExists =  repo.findById(id);
             if(!(ContactExists == null)){
            
-            //validadar data aqui
             var newTelephone = telephone == null ? ContactExists.telephone : telephone; 
             var newCellphone = cellphone == null ? ContactExists.cellphone : cellphone; 
             var newContactName = contactName == null ? ContactExists.contactName : contactName; 
@@ -44,7 +42,6 @@ namespace repository
             newContactName, newEmail, ContactExists.id, ContactExists.createdAt);
 
             repo.update(ContactNewData);
-
             return ContactNewData;
             }
             return ContactExists;
