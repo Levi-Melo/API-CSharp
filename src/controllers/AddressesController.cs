@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using repository;
 
 namespace apiCSharp.Controllers
 {
@@ -13,9 +15,10 @@ namespace apiCSharp.Controllers
     {
 
         [HttpGet, Route("/addresses")]
-        public string Get()
+        public List<Address> Get()
         {
-            return "addresses";
+            AddressRepository repo = new AddressRepository();
+            return repo.findAll();
         }
         [HttpPost, Route("/addresses")]
         public string Post()
