@@ -29,10 +29,19 @@ namespace repository
             return data;
         }
 
-        public void delete(Client client){
+        public bool delete(Guid id){
+            var client = findById(id);
+            if(client == null){
+                return false;
+            }
             var db = new ClientsContext();
                 db.Remove<Client>(client);
                 db.SaveChanges(); 
+            client = findById(id);
+            if(client != null){
+                return false;
+            }
+            return true;
             }
         }
 }

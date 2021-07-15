@@ -16,25 +16,45 @@ namespace apiCSharp.Controllers
     {
 
         [HttpGet, Route("/clients")]
-        public List<Client> Get()
+        public IActionResult Get()
         {
             ClientRepository repo = new ClientRepository();
-            return repo.findAll();
+            return Ok(repo.findAll());
         }
         [HttpPost, Route("/clients")]
-        public string Post()
+        public IActionResult Post(Client data)
         {   
-            return "clients";
+            ClientRepository repo = new ClientRepository();
+            if (ModelState.IsValid) 
+            {
+                repo.insert(data);
+                return Ok(data);
+            }
+            return BadRequest();
         }
         [HttpPut, Route("/clients")]
-        public string Put()
+        public IActionResult Put(Guid id, Client data)
         {   
-            return "clients";
+            ClientRepository repo = new ClientRepository();
+            Client exists = repo.findById(id);
+            if(exists == null){
+                return BadRequest();
+            }
+            if (ModelState.IsValid) 
+            {
+                repo.update(data); 
+                return Ok();
+            }        
+            return BadRequest();
         }
-        [HttpDelete, Route("/clients")]
-        public string Delete()
+        [HttpDelete, Route("/clients/{id}")]
+        public IActionResult Delete(Guid id)
         {   
-            return "clients";
+            ClientRepository repo = new ClientRepository();
+            if(repo.delete(id)){
+                return Ok();
+            }
+            return BadRequest();
         }
     }
 }

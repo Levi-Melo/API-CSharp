@@ -15,25 +15,45 @@ namespace apiCSharp.Controllers
     {
 
         [HttpGet, Route("/contacts")]
-        public List<Contact> Get()
+        public IActionResult Get()
         {
             ContactRepository repo = new ContactRepository();
-            return repo.findAll();
+            return Ok(repo.findAll());
         }
         [HttpPost, Route("/contacts")]
-        public string Post()
+        public IActionResult Post(Contact data)
         {   
-            return "contacts";
+            if (ModelState.IsValid) 
+            {
+                ContactRepository repo = new ContactRepository();
+                repo.insert(data);
+                return Ok(data);
+            }
+            return BadRequest();
         }
-        [HttpPut, Route("/contacts")]
-        public string Put()
+        [HttpPut, Route("/contacts/{id}")]
+        public IActionResult Put(Guid id, Contact data)
         {   
-            return "contacts";
+            ContactRepository repo = new ContactRepository();
+            Contact exists = repo.findById(id);
+            if(exists == null){
+                return BadRequest();
+            }
+            if (ModelState.IsValid) 
+            {
+                repo.update(data); 
+                return Ok();
+            }        
+            return BadRequest();
         }
-        [HttpDelete, Route("/contacts")]
-        public string Delete()
+        [HttpDelete, Route("/contacts/{id}")]
+        public IActionResult Delete(Guid id)
         {   
-            return "contacts";
+            ContactRepository repo = new ContactRepository();
+            if(repo.delete(id)){
+                return Ok();
+            }
+            return BadRequest();
         }
     }
 }

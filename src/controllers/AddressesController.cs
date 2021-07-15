@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using entities;
+﻿using entities;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using repository;
-
+using System;
+using System.Collections.Specialized;
 namespace apiCSharp.Controllers
 {
     [ApiController]
@@ -15,25 +11,45 @@ namespace apiCSharp.Controllers
     {
 
         [HttpGet, Route("/addresses")]
-        public List<Address> Get()
+        public IActionResult Get()
         {
             AddressRepository repo = new AddressRepository();
-            return repo.findAll();
+            return Ok(repo.findAll());
         }
         [HttpPost, Route("/addresses")]
-        public string Post()
+        public IActionResult Post( Address data)
         {   
-            return "addresses";
+            AddressRepository repo = new AddressRepository();
+            if (ModelState.IsValid) 
+            {
+                repo.insert(data);
+                return Ok(data);
+            }
+            return BadRequest();
         }
-        [HttpPut, Route("/addresses")]
-        public string Put()
+        [HttpPut, Route("/addresses/{id}")]
+        public IActionResult Put(Guid id, Address data)
         {   
-            return "addresses";
+            AddressRepository repo = new AddressRepository();
+            Address exists = repo.findById(id);
+            if(exists == null){
+                return BadRequest();
+            }
+            if (ModelState.IsValid) 
+            {
+                repo.update(data); 
+                return Ok();
+            }        
+            return BadRequest();
         }
-        [HttpDelete, Route("/addresses")]
-        public string Delete()
+        [HttpDelete, Route("/addresses/{id}")]
+        public IActionResult Delete(Guid id)
         {   
-            return "addresses";
+            AddressRepository repo = new AddressRepository();
+            if(repo.delete(id)){
+                return Ok();
+            }
+            return BadRequest();
         }
     }
 }

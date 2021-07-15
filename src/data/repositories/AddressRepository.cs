@@ -38,10 +38,19 @@ namespace repository
             return data;
         }
 
-        public void delete(Address address){
+        public bool delete(Guid id){
+            var address = findById(id);
+            if(address == null){
+                return false;
+            }
             var db = new AddressesContext();
                 db.Remove<Address>(address);
                 db.SaveChanges(); 
+            address = findById(id);
+            if(address != null){
+                return false;
+            }
+            return true;
         }
     }
 }

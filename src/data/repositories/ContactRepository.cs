@@ -34,11 +34,19 @@ namespace repository
             return data;
         }
 
-        public Contact delete(Contact data){
+        public bool delete(Guid id){
+            var contact = findById(id);
+            if(contact == null){
+                return false;
+            }
             var db = new ContactsContext();
-                db.Remove<Contact>(data);
+                db.Remove<Contact>(contact);
                 db.SaveChanges(); 
-            return data;
+            contact = findById(id);
+            if(contact != null){
+                return false;
+            }
+            return true;
         }
     }
 }

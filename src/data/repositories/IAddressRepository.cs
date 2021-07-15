@@ -8,5 +8,5 @@ public interface IAddressRepository {
   List<Address> findByClient(Guid clientId);
   Address insert(Address address);
   Address update(Address address);
-  void delete(Address address);
+  bool delete(Guid id);
 }

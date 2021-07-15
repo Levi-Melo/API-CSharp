@@ -8,5 +8,5 @@ public interface IContactRepository {
   List<Contact> findByClient(Guid clientId);
   Contact insert(Contact contact);
   Contact update(Contact contact);
-  Contact delete(Contact contact);
+  bool delete(Guid id);
 }

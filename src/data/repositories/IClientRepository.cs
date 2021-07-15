@@ -7,5 +7,5 @@ public interface IClientRepository {
   List<Client> findAll();
   Client insert(Client client);
   Client update(Client client);
-  void delete(Client client);
+  bool delete(Guid id);
 }
